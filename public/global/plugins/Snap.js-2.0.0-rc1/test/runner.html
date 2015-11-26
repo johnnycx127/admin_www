@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <title>Snap.js Tests</title>
+        <meta http-equiv="x-ua-compatible" content="IE=edge" />
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <link rel="stylesheet" type="text/css" href="../dist/latest/snap.css" />
+        <link rel="stylesheet" type="text/css" href="../demo/assets/demo.css" />
+        <link rel="stylesheet" type="text/css" href="../node_modules/mocha/mocha.css">
+
+        <style>
+            body, html {
+                overflow: auto;
+            }
+            .box{
+                width: 100px;
+                height: 100px;
+                margin: 100px auto;
+                background: green;
+            }
+            .box:nth-child(2){ background: red; }
+            .box:nth-child(3){ background: blue; }
+            .tests{
+                top: 0; left: 0; right: 0;
+                position: absolute;
+                opacity: 0.2;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="mocha"></div>
+
+        <div class="tests">
+            <div id="box-A" class="box"></div>
+            <div id="box-B" class="box"></div>
+            <div id="box-C" class="box"></div>
+        </div>
+
+        <script type="text/javascript" src="../dist/latest/snap.js"></script>
+
+        <script src="../node_modules/async/lib/async.js"></script>
+        <script src="../node_modules/mocha/mocha.js"></script>
+        <script src="../node_modules/chai/chai.js"></script>
+        <!--
+        This was causing very strange errors, will revisit
+        <script src="../node_modules/blanket/dist/mocha/blanket_mocha.js" data-cover-only="src/js/"></script> -->
+
+        <script>
+            mocha.setup('bdd');
+            var assert = chai.assert;
+            var expect = chai.expect;
+            var should = chai.should();
+        </script>
+
+        <script src="tests.js"></script>
+
+        <script>
+            window.onload = function(){
+                (window.mochaPhantomJS) ? mochaPhantomJS.run() : mocha.run();
+            };
+        </script>
+   </body>
+</html>

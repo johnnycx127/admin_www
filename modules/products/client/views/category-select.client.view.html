@@ -1,0 +1,16 @@
+<div class="select-address form-inline" ng-if="isOpen">
+  <ul class="dropdown-menu">
+    <li>
+      <!-- 一级类目 -->
+    <span ng-repeat="item in categories" ng-click="clearSecondLevel()" ng-class="{'label label-success': p === item.p}">
+      {{item.p}} {{x}}
+    </span>
+    </li>
+    <li>
+      <!-- 二级类目-->
+    <span ng-repeat="item in provinces" ng-click="aSet.p(item.p)" ng-class="{'label label-success': p === item.p}">
+      {{item.p}} {{x}}
+    </span>
+    </li>
+  </ul>
+</div>

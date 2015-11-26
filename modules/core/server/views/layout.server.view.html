@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <base href="/">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="fragment" content="!">
+
+  <!-- Apple META -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Facebook META -->
+  <meta property="fb:app_id" content="{{facebookAppId}}">
+  <meta property="og:site_name" content="{{title}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:image" content="{{logo}}">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter META -->
+  <meta name="twitter:title" content="{{title}}">
+  <meta name="twitter:description" content="{{description}}">
+  <meta name="twitter:url" content="{{url}}">
+  <meta name="twitter:image" content="{{logo}}">
+
+  <!-- Fav Icon -->
+  <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
+
+  <link id="ng_load_plugins_before"/>
+  <!-- Application CSS Files -->
+  {% for cssFile in cssFiles %}
+  <link rel="stylesheet" href="{{cssFile}}">
+  {% endfor %}
+</head>
+
+<body class="ng-cloak page-header-fixed page-sidebar-closed-hide-logo page-on-load"
+      ng-class="{'page-content-white': settings.layout.pageContentWhite,'page-container-bg-solid': settings.layout.pageBodySolid, 'page-sidebar-closed': settings.layout.pageSidebarClosed}">
+<!-- BEGIN PAGE SPINNER -->
+<div ng-spinner-bar class="page-spinner-bar">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+</div>
+<!-- END PAGE SPINNER -->
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+  <div ng-include="'/modules/core/client/views/topbar.client.view.html'" data-ng-controller="HeaderController"></div>
+</div>
+<!-- END HEADER -->
+<div class="clearfix"></div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+  <!-- BEGIN SIDEBAR -->
+  <div class="page-sidebar-wrapper">
+    <div ng-include="'/modules/core/client/views/sidebar.client.view.html'" data-ng-controller="SidebarController"></div>
+  </div>
+  <!-- END SIDEBAR -->
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <div class="page-content">
+      <!-- END STYLE CUSTOMIZER -->
+      <!-- BEGIN ACTUAL CONTENT -->
+      <div ui-view></div>
+      <!-- END ACTUAL CONTENT -->
+    </div>
+  </div>
+  <!-- END CONTENT -->
+  <!-- BEGIN QUICK SIDEBAR -->
+  <a href="javascript:;" class="page-quick-sidebar-toggler">
+    <i class="icon-login"></i>
+  </a>
+
+  <div class="page-quick-sidebar-wrapper">
+    <div ng-include="'/modules/core/client/views/quick-sidebar.client.view.html'" data-ng-controller="QuickSidebarController"></div>
+  </div>
+  <!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+  <div ng-include="'/modules/core/client/views/footer.client.view.html'" data-ng-controller="FooterController"></div>
+</div>
+<!-- END FOOTER -->
+
+<!--Embedding The User Object-->
+<script type="text/javascript">
+  var user = {{ user | json | safe }};
+</script>
+
+<!--Load The Socket.io File-->
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+<!--Application JavaScript Files-->
+{% for jsFile in jsFiles %}
+<script type="text/javascript" src="{{jsFile}}"></script>
+{% endfor %}
+
+{% if livereload %}
+<!--Livereload script rendered -->
+<script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
+{% endif %}
+</body>
+<!-- END BODY -->
+
+</html>
