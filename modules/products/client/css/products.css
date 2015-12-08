@@ -147,3 +147,7 @@ td {
     opacity: 0;
     overflow: hidden;
 }
+
+.product-list-filter-title {
+    padding: 5px 10px
+}

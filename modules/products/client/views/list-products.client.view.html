@@ -2,74 +2,7 @@
   <div class="page-bar">
     <div ncy-breadcrumb></div>
   </div>
-  <h3 class="page-title"> 商品 </h3>
-
-  <div clsss="row">
-      <div class="portlet m-heading-1 border-green m-bordered list-filter-animate-show" ng-show="isOpenFilterBar">
-        <div class="portlet-title">
-          <div class="caption font-dark">
-            商品筛选项
-          </div>
-          <div class="actions">
-            <div class="btn-group btn-group-devided" data-toggle="buttons">
-              <label class="btn btn-transparent blue btn-outline btn-circle btn-sm" ng-click="closeFilterBar()">
-                <i class="fa fa-angle-down"></i>&nbsp; 收起
-              </label>
-              <label class="btn btn-transparent green btn-outline btn-circle btn-sm" ng-click="resetFilter()">
-                <i class="fa fa-undo"></i>&nbsp;重置
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="portlet-body">
-          <div class="row">
-            <div class="col-md-4" ng-init="loadCities()">
-              <div class="form-group">
-                <label class="control-label col-md-4" style="padding-top: 6px">城市</label>
-
-                <div class="col-md-8">
-                  <select ng-model="filter.city" class="bs-select form-control" ng-options="city.city_name for city in cities track by city.id" stop-event="touchend">
-                    <option value=""></option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4" ng-init="loadCategories()">
-              <div class="form-group">
-                <label class="control-label col-md-4" style="padding-top: 6px">项目类型</label>
-
-                <div class="col-md-8">
-                  <select ng-model="filter.category" class="bs-select form-control" ng-options="category.category_name for category in categories track by category.category_id" stop-event="touchend">
-                    <option value=""></option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4" style="padding: 6px 16px">
-              <div class="form-group">
-                <div class="checkbox-list col-md-12">
-                  <label>
-                    <input type="checkbox" ng-model="filter.isIndex">&nbsp;是否首页推荐
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="control-label col-md-4" style="padding-top: 6px">项目名称</label>
-
-                <div class="col-md-8">
-                  <input type="text" class="form-control" ng-model="filter.detailName">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
+  <h4 class="page-title">  </h4>
 
   <div class="row">
     <div class="col-md-12">
@@ -80,7 +13,7 @@
           </div>
           <div class="actions">
             <div class="btn-group btn-group-devided" data-toggle="buttons">
-              <button class="btn btn-transparent blue btn-outline btn-circle btn-sm" snap-toggle="right">
+              <button class="btn btn-transparent blue btn-outline btn-circle btn-sm" ng-click="openAside()">
                 <i class="fa fa-filter"></i>&nbsp;筛选
               </button>
               <label class="btn btn-transparent blue btn-outline btn-circle btn-sm" ng-click="dtInstance.rerender()">

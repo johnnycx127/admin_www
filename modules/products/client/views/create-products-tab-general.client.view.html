@@ -1,0 +1,224 @@
+<div class="form-body" ng-controller="ProductCreateGenericTabCtrl">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label for="title" class="col-md-3 control-label">标题:
+          <span class="required"> * </span>
+        </label>
+
+        <div class="col-md-9">
+                            <textarea type="text" name="title" id="title" ng-model="product.title" class="form-control"
+                                      rows="3" ng-minlength="1" required maxlength="256"></textarea>
+
+          <div ng-messages="productForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">请填写标题</p>
+
+            <p class="help-block error-text" ng-message="minlength">请填写标题</p>
+
+            <p class="help-block error-text" ng-message="maxlength">标题最大长度256</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label class="col-md-3 control-label" for="desc">描述:</label>
+
+        <div class="col-md-9">
+                        <textarea id="desc" name="desc" ng-model="product.desc" class="form-control" rows="3"
+                                  maxlength="256"></textarea>
+
+          <p class="help-block">多个步骤以##隔开</p>
+
+          <div ng-messages="productForm.desc.$error" role="alert">
+            <p class="help-block error-text" ng-message="maxlength">最大长度256</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label class="col-md-3 control-label" for="serviceDetail">服务明细名称:
+          <span class="required"> * </span>
+        </label>
+
+        <div class="col-md-9">
+          <select id="serviceDetail" name="serviceDetail" ng-model="product.serviceDetail"
+                  class="bs-select form-control"
+                  ng-options="serviceDetail.name for serviceDetail in serviceDetails"
+                  stop-event="touchend" required required>
+            <option value=""></option>
+          </select>
+
+          <div ng-messages="productForm.serviceDetail.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">请选择服务明细</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label class="col-md-3 control-label" for="brand">品牌:
+          <span class="required"> * </span>
+        </label>
+
+        <div class="col-md-9">
+          <input id="brand" name="brand" ng-model="product.brand" type="text" class="form-control"
+                 placeholder="请输入品牌" required>
+
+          <div ng-messages="productForm.brand.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">请填写品牌</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label class="col-md-3 control-label" for="component">成分:
+          <span class="required"> * </span>
+        </label>
+
+        <div class="col-md-9">
+          <textarea id="component" name="component" ng-model="product.component" class="form-control" rows="3" required></textarea>
+
+          <div ng-messages="productForm.component.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">请填写成分</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label class="col-md-3 control-label" for="effect">功效:
+          <span class="required"> * </span>
+        </label>
+
+        <div class="col-md-9">
+          <textarea id="effect" name="effect" ng-model="product.effect" class="form-control" rows="3" required></textarea>
+
+          <div ng-messages="productForm.effect.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">请填写功效</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label class="col-md-3 control-label" for="intendedFor">适用人群:</label>
+
+        <div class="col-md-9">
+                        <textarea id="intendedFor" name="intendedFor" ng-model="product.intendedFor"
+                                  class="form-control" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label class="col-md-3 control-label" for="price">产品价格:
+          <span class="required"> * </span>
+        </label>
+
+        <div class="col-md-9">
+          <input id="price" name="price" ng-model="product.price" type="number" class="form-control"
+                 required min="1">
+
+          <div ng-messages="productForm.price.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">填写价格</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label class="col-md-3 control-label" for="seqNum">排序序号:</label>
+
+        <div class="col-md-9">
+          <input id="seqNum" name="seqNum" type="number" ng-model="product.number" class="form-control"
+                 min="0" ng-pattern="/^\d+$/">
+
+          <div ng-messages="productForm.seqNum.$error" role="alert">
+            <p class="help-block error-text" ng-message="pattern">序号必须为正整数</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-md-3 control-label">上架时间:
+          <span class="required">*</span>
+        </label>
+
+        <div class="col-md-9">
+          <datetimepicker ng-model="product.availableDateTime"
+                          date-format="yyyy-MM-dd"
+                          current-text="今天"
+                          clear-text="清除"
+                          close-text="关闭">
+          </datetimepicker>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group" show-errors>
+        <label class="col-md-3 control-label">上架日期:
+          <span class="required">*</span>
+        </label>
+
+        <div class="col-md-9">
+          <datetimepicker id="availableDate"
+                          name="availableDate"
+                          ng-model="product.availableDate"
+                          date-format="yyyy-MM-dd"
+                          current-text="今天"
+                          clear-text="清除"
+                          close-text="关闭"
+                          hidden-time="true" ng-required="true">
+          </datetimepicker>
+          <div ng-messages="productForm.availableDate.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">请填写上架日期</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-md-3 control-label">选择类目:
+          <span class="required">*</span>
+        </label>
+
+        <div class="col-md-9">
+          <input class="form-control"
+                 category-selector
+                 categories="categories"
+                 ng-model="product.category"
+                 type="text"
+                 is-open="shouldOpenCtgySelector"
+                 ng-click="openCtgySelector()"
+                 ng-disabled="shouldOpenCtgySelector" ng-required="true">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -40,3 +40,10 @@ a:hover .header-profile-image {
     opacity: 0 !important;
     overflow: hidden !important;
 }
+
+.ng-aside.horizontal .modal-dialog {
+    position: absolute;
+    padding-top: 46px;
+    top: 0;
+    height: 100%;
+}

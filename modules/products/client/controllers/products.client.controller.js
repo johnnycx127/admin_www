@@ -1,8 +1,8 @@
 'use strict';
 
 // Articles controller
-angular.module('products').controller('ProductsListController', ['$scope', '$stateParams', '$location', 'Authentication', 'DTColumnBuilder', 'DTOptionsBuilder', 'DTColumnDefBuilder','Commons', '$resource', '$uibModal', '$compile',
-  function ($scope, $stateParams, $location, Authentication, DTColumnBuilder, DTOptionsBuilder, DTColumnDefBuilder, Commons, $resource, $uibModal, $compile) {
+angular.module('products').controller('ProductsListController', ['$scope', '$stateParams', '$location', 'Authentication', 'DTColumnBuilder', 'DTOptionsBuilder', 'DTColumnDefBuilder','Commons', '$resource', '$uibModal', '$compile','$aside',
+  function ($scope, $stateParams, $location, Authentication, DTColumnBuilder, DTOptionsBuilder, DTColumnDefBuilder, Commons, $resource, $uibModal, $compile, $aside) {
     $scope.authentication = Authentication;
     $scope.products = {};
     $scope.isOpenFilterBar = false;
@@ -70,15 +70,6 @@ angular.module('products').controller('ProductsListController', ['$scope', '$sta
 
     $scope.dtInstance = {};
 
-
-    $scope.loadCities = function () {
-      $scope.cities = Commons.Cities.query();
-    };
-
-    $scope.loadCategories = function () {
-      $scope.categories = Commons.Categories.query();
-    };
-
     function serverData(sSource, aoData, fnCallback, oSettings) {
       //All the parameters you need is in the aoData variable
       var draw = aoData[0].value;
@@ -105,15 +96,19 @@ angular.module('products').controller('ProductsListController', ['$scope', '$sta
       });
     }
 
-    $scope.resetFilter = function () {
-      $scope.filter = {};
-    };
-
     $scope.delete = function (product) {
       var modalInstance = $uibModal.open({
         animation: true,
         templateUrl: 'confirmModal.html',
-        controller: 'ConfirmDeleteProductCtrl',
+        controller: function ($scope, $uibModalInstance) {
+          $scope.ok = function () {
+            $uibModalInstance.close();
+          };
+
+          $scope.cancel = function () {
+            $uibModalInstance.dismiss();
+          };
+        },
         size: 'sm'
       });
 
@@ -124,16 +119,72 @@ angular.module('products').controller('ProductsListController', ['$scope', '$sta
         console.info('Modal dismissed at: ' + new Date());
       });
     };
-  }
-]).controller('ConfirmDeleteProductCtrl', function ($scope, $uibModalInstance) {
-  $scope.ok = function () {
-    $uibModalInstance.close();
-  };
 
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss();
-  };
-}).controller('ProductCreateCtrl', ['$scope', '$stateParams', '$location', 'Authentication', 'Commons', 'Products', 'FileUploader',
+    $scope.asideState = {
+      open: false
+    };
+
+    $scope.openAside = function() {
+      $scope.asideState = {
+        open: true,
+        position: 'right'
+      };
+
+      function postClose(filter) {
+        $scope.asideState.open = false;
+        $scope.filter = filter || {};
+      }
+
+      $aside.open({
+        templateUrl: 'modules/products/client/views/list-products-filter.client.view.html',
+        placement: 'right',
+        size: 'sm',
+        backdrop: false,
+        controller: 'ProductListFilterCtrl',
+        resolve: {
+          filter: function () {
+            return $scope.filter;
+
+          }
+        }
+      }).result.then(postClose, postClose);
+    };
+  }
+]).controller('ProductListFilterCtrl', ['$scope', 'Commons', '$uibModalInstance', 'filter',
+  function ($scope, Commons, $uibModalInstance, filter) {
+    $scope.filter = filter || {};
+
+    $scope.loadCities = function () {
+      //$scope.cities = Commons.Cities.query();
+      $scope.cities = [
+        {
+          id: 1,
+          city_name: '北京'
+        },
+        {
+          id: 2,
+          city_name: '上海'
+        }
+      ];
+    };
+
+    $scope.loadCategories = function () {
+      $scope.categories = Commons.Categories.query();
+    };
+
+    $scope.resetFilter = function () {
+      $scope.filter = {};
+    };
+
+    $scope.close = function () {
+      $uibModalInstance.close($scope.filter);
+    };
+
+    $scope.reset = function () {
+      $uibModalInstance.dismiss();
+    };
+  }
+]).controller('ProductCreateCtrl', ['$scope', '$stateParams', '$location', 'Authentication', 'Commons', 'Products', 'FileUploader',
   function($scope, $stateParams, $location, Authentication, Commons, Products, FileUploader) {
     $scope.authentication = Authentication;
     $scope.product = {
@@ -204,10 +255,6 @@ angular.module('products').controller('ProductsListController', ['$scope', '$sta
       $scope.error = '';
     };
 
-    $scope.openCtgySelector = function () {
-      $scope.shouldOpenCtgySelector = true;
-    };
-
     $scope.removeProductImg = function (img) {
       for(var i = 0; i < $scope.product.imgs.length; i++) {
         if ($scope.product.imgs[i] === img) {
@@ -276,9 +323,13 @@ angular.module('products').controller('ProductsListController', ['$scope', '$sta
     };
 
   }
-]).controller('ProductEditCtrl', ['$scope', '$stateParams', '$location', 'Authentication', 'Commons', 'Products',
+]).controller('ProductCreateGenericTabCtrl', ['$scope', '$stateParams', '$location', 'Authentication', 'Commons', 'Products',
   function($scope, $stateParams, $location, Authentication, Commons, Products) {
+    $scope.openCtgySelector = function () {
+      $scope.shouldOpenCtgySelector = true;
+    };
 
+    $scope.product = $scope.$parent.product;
   }
 ]).controller('ProductViewCtrl', ['$scope', '$stateParams', '$location', 'Authentication', 'Commons', 'Products',
   function($scope, $stateParams, $location, Authentication, Commons, Products) {

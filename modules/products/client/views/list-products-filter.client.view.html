@@ -1,0 +1,61 @@
+<div class="portlet product-list-filter">
+  <div class="portlet-title product-list-filter-title" style="padding: 5px 10px">
+    <div class="caption font-dark">
+      筛选项:
+    </div>
+    <div class="actions">
+
+      <div class="btn-group btn-group-devided" data-toggle="buttons">
+        <label class="btn btn-transparent blue btn-outline btn-circle btn-sm" ng-click="close()">
+          <i class="fa fa-angle-down"></i>&nbsp; 关闭
+        </label>
+        <label class="btn btn-transparent green btn-outline btn-circle btn-sm" ng-click="reset()">
+          <i class="fa fa-undo"></i>&nbsp;重置
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="portlet-body product-list-filter-body">
+    <div class="form-horizontal form-row-seperated">
+      <div class="form-group" ng-init="loadCities()">
+        <label class="control-label col-md-4" style="padding-top: 6px">城市</label>
+
+        <div class="col-md-8">
+          <select ng-model="filter.city" class="bs-select form-control"
+                  ng-options="city.city_name for city in cities track by city.id" stop-event="touchend">
+            <option value=""></option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" ng-init="loadCategories()">
+        <label class="control-label col-md-4" style="padding-top: 6px">项目类型</label>
+
+        <div class="col-md-8">
+          <select ng-model="filter.category" class="bs-select form-control"
+                  ng-options="category.category_name for category in categories track by category.category_id"
+                  stop-event="touchend">
+            <option value=""></option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-md-4" style="padding-top: 6px">项目名称</label>
+
+        <div class="col-md-8">
+          <input type="text" class="form-control" ng-model="filter.detailName">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox-list col-md-8 col-md-offset-4">
+          <label>
+            <input type="checkbox" ng-model="filter.isIndex">&nbsp;是否首页推荐
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

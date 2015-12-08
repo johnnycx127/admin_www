@@ -15,8 +15,7 @@ var ApplicationConfiguration = (function () {
     'oc.lazyLoad',
     'datatables',
     'ncy-angular-breadcrumb',
-    'angularFileUpload',
-    'snap'
+    'ngAside'
   ];
 
   // Add a new vertical module
